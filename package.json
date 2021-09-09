@@ -1,0 +1,40 @@
+{
+	"name": "edbot-studio-client",
+	"version": "1.0",
+	"description": "A Node.js client API for Edbot Studio",
+	"main": "index.js",
+	"files": [
+		"package.json",
+		"index.js",
+		"dist/client.js",
+		"dist/robotis.js"
+	],
+	"keywords": [
+		"edbot",
+		"studio",
+		"edbot studio",
+		"node",
+		"nodejs",
+		"api",
+		"robot",
+		"robotis",
+		"lego",
+		"mindstorms",
+		"ev3",
+		"mini",
+		"dream",
+		"play&code",
+		"robotics",
+		"educational"
+	],
+	"author": "Clive Haworth",
+	"homepage": "http://support.ed.bot",
+	"license": "MIT",
+	"dependencies": {
+		"ws": "*",
+		"isomorphic-ws": "*"
+	},
+	"peerdependencies": {
+		"lodash": "*"
+	}
+}
