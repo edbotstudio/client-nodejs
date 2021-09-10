@@ -1,6 +1,6 @@
 {
     "name": "edbot-studio-client",
-    "version": "1.0.5",
+    "version": "1.0.8",
     "description": "A Node.js client API for Edbot Studio",
     "main": "index.js",
     "files": [
@@ -9,9 +9,6 @@
         "dist/client.js",
         "dist/robotis.js"
     ],
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
     "keywords": [
         "edbot",
         "studio",

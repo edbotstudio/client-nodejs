@@ -5,7 +5,7 @@
 //
 
 const WebSocket = require("isomorphic-ws");
-const _ = require("lodash");
+const { merge: l_merge, unset: l_unset } = require("lodash");
 
 class EdbotStudioClient {
 	static Message = {
@@ -74,7 +74,7 @@ class EdbotStudioClient {
 					// Run code specific to the response message type.
 					switch(message.type) {
 						case EdbotStudioClient.Request.INIT:
-							_.merge(self.data, message.data);
+							l_merge(self.data, message.data);
 							self.connected = true;
 							break;
 					}
@@ -94,14 +94,14 @@ class EdbotStudioClient {
 					}
 				} else if(message.sort === EdbotStudioClient.Message.UPDATE) {
 					if(self.connected) {
-						_.merge(self.data, message.data);
+						l_merge(self.data, message.data);
 						if(self.listener) {
 							self.listener(message);
 						}
 					}
 				} else if(message.sort === EdbotStudioClient.Message.DELETE) {
 					if(self.connected) {
-						_.unset(self.data, message.data.path);
+						l_unset(self.data, message.data.path);
 						if(self.listener) {
 							self.listener(message);
 						}
