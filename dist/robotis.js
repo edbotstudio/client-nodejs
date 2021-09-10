@@ -1,9 +1,11 @@
 //
-// Edbot Software API Node.js module utility functions.
+// Node.js client utilities for Edbot Studio.
+//
+// Copyright (c) Robots in Schools Ltd. All rights reserved.
 //
 class Robotis {
 	// We need to return a sensible number if the distance is out of range.
-	static OUT_OF_RANGE = 100.0
+	static OUT_OF_RANGE = 100.0;
 
 	//
 	// IR sensor IRSS-10. Convert raw value to cm.

@@ -1,9 +1,42 @@
+//
+// A Node.js client API for Edbot Studio.
+//
 // Copyright (c) Robots in Schools Ltd. All rights reserved.
+//
 
 const WebSocket = require("isomorphic-ws");
 const _ = require("lodash");
 
 class EdbotStudioClient {
+	static Message = {
+		REQUEST: 1,
+		RESPONSE: 2,
+		UPDATE: 3,
+		DELETE: 4,
+		CLOSE: 5
+	};
+	static Request = {
+		INIT: 1,
+		GET_CLIENTS: 2,
+		GET_SERVERS: 3,
+		RUN_MOTION: 10,
+		SET_SERVO_MODE: 11,
+		SET_SERVO_TORQUE: 12,
+		SET_SERVO_LED: 13,
+		SET_SERVO_SPEED: 14,
+		SET_SERVO_POSITION: 15,
+		SET_SERVO_PID: 16,
+		SET_BUZZER: 20,
+		SET_OPTIONS: 21,
+		SET_CUSTOM: 22,
+		SAY: 23, 
+		RESET: 24
+	};
+	static Filter = {
+		ALL: 1,
+		CFG: 2
+	};
+
 	constructor(server, port, user, listener = null,
 			filter = EdbotStudioClient.Filter.ALL, deviceAlias = null) {
 		this.server = server;
@@ -245,34 +278,5 @@ class EdbotStudioClient {
 		this.sequence++;
 	}
 }
-
-EdbotStudioClient.Message = {
-	REQUEST: 1,
-	RESPONSE: 2,
-	UPDATE: 3,
-	DELETE: 4,
-	CLOSE: 5
-};
-EdbotStudioClient.Request = {
-	INIT: 1,
-	GET_CLIENTS: 2,
-	GET_SERVERS: 3,
-	RUN_MOTION: 10,
-	SET_SERVO_MODE: 11,
-	SET_SERVO_TORQUE: 12,
-	SET_SERVO_LED: 13,
-	SET_SERVO_SPEED: 14,
-	SET_SERVO_POSITION: 15,
-	SET_SERVO_PID: 16,
-	SET_BUZZER: 20,
-	SET_OPTIONS: 21,
-	SET_CUSTOM: 22,
-	SAY: 23, 
-	RESET: 24
-};
-EdbotStudioClient.Filter = {
-	ALL: 1,
-	CFG: 2
-};
 
 module.exports = EdbotStudioClient;
