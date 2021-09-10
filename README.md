@@ -13,7 +13,7 @@ Install the package using NPM with:
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/github_username/client-nodejs/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/edbotstudio/client-nodejs/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 ## Contributing
