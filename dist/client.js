@@ -61,7 +61,7 @@ class EdbotStudioClient {
 			self.ws = new WebSocket(url);
 			self.ws.onopen = function() {
 				self.data = {};
-				self._send(
+				self.#send(
 					EdbotStudioClient.Request.INIT, {
 						user: self.user,
 						filter: self.filter,
@@ -199,74 +199,74 @@ class EdbotStudioClient {
 	}
 
 	getClients() {
-		return this._request(EdbotStudioClient.Request.GET_CLIENTS, null);
+		return this.#request(EdbotStudioClient.Request.GET_CLIENTS, null);
 	}
 
 	getServers() {
-		return this._request(EdbotStudioClient.Request.GET_SERVERS, null);
+		return this.#request(EdbotStudioClient.Request.GET_SERVERS, null);
 	}
 
 	runMotion(params) {
-		return this._request(EdbotStudioClient.Request.RUN_MOTION, params);
+		return this.#request(EdbotStudioClient.Request.RUN_MOTION, params);
 	}
 
 	setServoMode(params) {
-		return this._request(EdbotStudioClient.Request.SET_SERVO_MODE, params);
+		return this.#request(EdbotStudioClient.Request.SET_SERVO_MODE, params);
 	}
 
 	setServoTorque(params) {
-		return this._request(EdbotStudioClient.Request.SET_SERVO_TORQUE, params);
+		return this.#request(EdbotStudioClient.Request.SET_SERVO_TORQUE, params);
 	}
 
 	setServoLED(params) {
-		return this._request(EdbotStudioClient.Request.SET_SERVO_LED, params);
+		return this.#request(EdbotStudioClient.Request.SET_SERVO_LED, params);
 	}
 
 	setServoSpeed(params) {
-		return this._request(EdbotStudioClient.Request.SET_SERVO_SPEED, params);
+		return this.#request(EdbotStudioClient.Request.SET_SERVO_SPEED, params);
 	}
 
 	setServoPosition(params) {
-		return this._request(EdbotStudioClient.Request.SET_SERVO_POSITION, params);
+		return this.#request(EdbotStudioClient.Request.SET_SERVO_POSITION, params);
 	}
 
 	setServoPID(params) {
-		return this._request(EdbotStudioClient.Request.SET_SERVO_PID, params);
+		return this.#request(EdbotStudioClient.Request.SET_SERVO_PID, params);
 	}
 
 	setBuzzer(params) {
-		return this._request(EdbotStudioClient.Request.SET_BUZZER, params);
+		return this.#request(EdbotStudioClient.Request.SET_BUZZER, params);
 	}
 
 	setOptions(params) {
-		return this._request(EdbotStudioClient.Request.SET_OPTIONS, params);
+		return this.#request(EdbotStudioClient.Request.SET_OPTIONS, params);
 	}
 
 	setCustom(params) {
-		return this._request(EdbotStudioClient.Request.SET_CUSTOM, params);
+		return this.#request(EdbotStudioClient.Request.SET_CUSTOM, params);
 	}
 
 	say(params) {
-		return this._request(EdbotStudioClient.Request.SAY, params);
+		return this.#request(EdbotStudioClient.Request.SAY, params);
 	}
 
 	reset(params) {
-		return this._request(EdbotStudioClient.Request.RESET, params);
+		return this.#request(EdbotStudioClient.Request.RESET, params);
 	}
 
 	///////////////////////////////////////////////////////////////////////////
 
-	_request(type, params) {
+	#request(type, params) {
 		if(!this.connected) {
 			throw "Not connected";
 		}
 		const self = this;
 		return new Promise((resolve, reject) => {
-			self._send(type, params, resolve, reject);
+			self.#send(type, params, resolve, reject);
 		});
 	}
 
-	_send(type, params, resolve, reject) {
+	#send(type, params, resolve, reject) {
 		this.ws.send(
 			JSON.stringify({
 				sort: EdbotStudioClient.Message.REQUEST,

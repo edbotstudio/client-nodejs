@@ -3,6 +3,7 @@
 //
 // Copyright (c) Robots in Schools Ltd. All rights reserved.
 //
+
 class Robotis {
 	// We need to return a sensible number if the distance is out of range.
 	static OUT_OF_RANGE = 100.0;
@@ -25,7 +26,7 @@ class Robotis {
 		} else if(raw > 713) {
 			return 3.0;
 		} else {
-			return round(214.32803656545 * Math.pow(raw, -0.60223538294025299184), 1);
+			return this.#round(214.32803656545 * Math.pow(raw, -0.60223538294025299184), 1);
 		}
 	}
 
@@ -47,7 +48,7 @@ class Robotis {
 		} else if(raw > 740) {
 			return 8.0;
 		} else {
-			return round(19490.373230416 * Math.pow(raw, -1.16498805911575493846), 1);
+			return this.#round(19490.373230416 * Math.pow(raw, -1.16498805911575493846), 1);
 		}
 	}
 
@@ -56,7 +57,7 @@ class Robotis {
 	// decimal place.
 	//
 	static rawToTPS10Temp(raw) {
-		return round(0.1179268 * raw - 34.86361, 1);
+		return this.#round(0.1179268 * raw - 34.86361, 1);
 	}
 
 	//
@@ -101,7 +102,7 @@ class Robotis {
 		} else if(raw > 959) {
 			return 300.0;
 		} else {
-			return round(300.0 * (raw - 64) / 895.0, 1);
+			return this.#round(300.0 * (raw - 64) / 895.0, 1);
 		}
 	}
 
@@ -124,7 +125,7 @@ class Robotis {
 		} else if(raw > 681) {
 			return 3.0;
 		} else {
-			return round(108.47751089561 * Math.pow(raw, -0.51378200718609424542), 1);
+			return this.#round(108.47751089561 * Math.pow(raw, -0.51378200718609424542), 1);
 		}
 	}
 
@@ -147,21 +148,17 @@ class Robotis {
 		} else if(raw > 681) {
 			return 3.0;
 		} else {
-			return round(108.47751089561 * Math.pow(raw, -0.51378200718609424542), 1);
+			return this.#round(108.47751089561 * Math.pow(raw, -0.51378200718609424542), 1);
 		}
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+
+	static #round(number, prec) {
+		var factor = Math.pow(10, prec);
+		var temp = Math.round(number * factor);
+		return temp / factor;
 	}
 }
 
 module.exports = Robotis;
-
-///////////////////////////////////////////////////////////////////////////
-//
-// Private.
-//
-///////////////////////////////////////////////////////////////////////////
-
-function round(number, prec) {
-    var factor = Math.pow(10, prec);
-    var temp = Math.round(number * factor);
-    return temp / factor;
-}
