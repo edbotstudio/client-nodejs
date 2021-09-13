@@ -6,7 +6,9 @@ This Node.js package implements a client API for Edbot Studio.
 
 Install the package using NPM with:
 
-    $ npm install edbot-studio-client
+```shell
+$ npm install edbot-studio-client
+```
 
 ## Usage
 
