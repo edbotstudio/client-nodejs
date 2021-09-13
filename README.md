@@ -32,4 +32,4 @@ Contributions are what make the open source community such an amazing place to l
 <!-- LICENCE -->
 ## Licence
 
-Distributed under the MIT Licence. See the [LICENCE](../main/LICENCE.txt) for more information.
+Distributed under the MIT Licence. See the [LICENCE](../main/LICENCE) for more information.
