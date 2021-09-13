@@ -53,7 +53,7 @@ class EdbotStudioClient {
 
 	connect() {
 		if(this.connected) {
-			return;					// silently return
+			return Promise.resolve();				// silently return
 		}
 		const url = `ws://${this.server}:${this.port}/api`;
 		const self = this;
