@@ -1,6 +1,6 @@
 {
 	"name": "edbot-studio-client",
-	"version": "1.0.12",
+	"version": "1.0.13",
 	"description": "A Node.js client API for Edbot Studio",
 	"main": "index.js",
 	"files": [
