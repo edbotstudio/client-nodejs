@@ -146,14 +146,14 @@ class EdbotStudioClient {
 
 	getData() {
 		if(!this.connected) {
-			throw "Not connected";
+			throw new Error("Not connected");
 		}
 		return this.data;
 	}
 
 	getRobotNames(model = null) {
 		if(!this.connected) {
-			throw "Not connected";
+			throw new Error("Not connected");
 		}
 		if(model) {
 			var robots = {};
@@ -171,12 +171,12 @@ class EdbotStudioClient {
 
 	getRobot(name) {
 		if(!this.connected) {
-			throw "Not connected";
+			throw new Error("Not connected");
 		}
 		if(this.data.robots[name]) {
 			return this.data.robots[name];
 		} else {
-			throw(name + " is not configured");
+			throw new Error(name + " is not configured");
 		}
 	}
 
@@ -258,7 +258,7 @@ class EdbotStudioClient {
 
 	#request(type, params) {
 		if(!this.connected) {
-			throw "Not connected";
+			throw new Error("Not connected");
 		}
 		const self = this;
 		return new Promise((resolve, reject) => {

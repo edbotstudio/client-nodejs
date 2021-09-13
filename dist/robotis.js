@@ -5,9 +5,6 @@
 //
 
 class Robotis {
-	// We need to return a sensible number if the distance is out of range.
-	static OUT_OF_RANGE = 100.0;
-
 	//
 	// IR sensor IRSS-10. Convert raw value to cm.
 	//
@@ -18,13 +15,11 @@ class Robotis {
 	//
 	// The measuring range is approx 3cm to 30cm.
 	//
-	// Return the distance in cm rounded to 1 decimal place or OUT_OF_RANGE.
+	// Return the distance in cm rounded to 1 decimal place.
 	//
 	static rawToIRSS10Dist(raw) {
-		if(raw < 26) {
-			return OUT_OF_RANGE;
-		} else if(raw > 713) {
-			return 3.0;
+		if(raw < 26 || raw > 713) {
+			throw new RangeError("Raw value " + raw + " is outside the permitted range [26 - 713]");
 		} else {
 			return this.#round(214.32803656545 * Math.pow(raw, -0.60223538294025299184), 1);
 		}
@@ -40,13 +35,11 @@ class Robotis {
 	//
 	// The measuring range is 8cm to 80cm.
 	//
-	// Return the distance in cm rounded to 1 decimal place or OUT_OF_RANGE.
+	// Return the distance in cm rounded to 1 decimal place.
 	//
 	static rawToDMS80Dist(raw) {
-		if(raw < 111) {
-			return OUT_OF_RANGE;
-		} else if(raw > 740) {
-			return 8.0;
+		if(raw < 111 || raw > 740) {
+			throw new RangeError("Raw value " + raw + " is outside the permitted range [111 - 740]");
 		} else {
 			return this.#round(19490.373230416 * Math.pow(raw, -1.16498805911575493846), 1);
 		}
@@ -97,10 +90,8 @@ class Robotis {
 	// Note the raw range of the SM-10 is 64 -> 959 and not 0 -> 1023.
 	//
 	static rawToSM10Angle(raw) {
-		if(raw < 64) {
-			return 0.0;
-		} else if(raw > 959) {
-			return 300.0;
+		if(raw < 64 || raw > 959) {
+			throw new RangeError("Raw value " + raw + " is outside the permitted range [64 - 959]");
 		} else {
 			return this.#round(300.0 * (raw - 64) / 895.0, 1);
 		}
@@ -117,13 +108,11 @@ class Robotis {
 	//
 	// The measuring range is 3cm to 20cm.
 	//
-	// Return the distance in cm rounded to 1 decimal place or OUT_OF_RANGE.
+	// Return the distance in cm rounded to 1 decimal place.
 	//
 	static rawToCM150Dist(raw) {
-		if(raw < 26) {
-			return OUT_OF_RANGE;
-		} else if(raw > 681) {
-			return 3.0;
+		if(raw < 26 || raw > 681) {
+			throw new RangeError("Raw value " + raw + " is outside the permitted range [26 - 681]");
 		} else {
 			return this.#round(108.47751089561 * Math.pow(raw, -0.51378200718609424542), 1);
 		}
@@ -140,13 +129,11 @@ class Robotis {
 	//
 	// The measuring range is 3cm to 20cm.
 	//
-	// Return the distance in cm rounded to 1 decimal place or OUT_OF_RANGE.
+	// Return the distance in cm rounded to 1 decimal place.
 	//
 	static rawToCM50Dist(raw) {
-		if(raw < 26) {
-			return OUT_OF_RANGE;
-		} else if(raw > 681) {
-			return 3.0;
+		if(raw < 26 || raw > 681) {
+			throw new RangeError("Raw value " + raw + " is outside the permitted range [26 - 681]");
 		} else {
 			return this.#round(108.47751089561 * Math.pow(raw, -0.51378200718609424542), 1);
 		}
