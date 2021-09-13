@@ -38,7 +38,7 @@ class EdbotStudioClient {
 		CFG: 2
 	};
 
-	constructor(server, port, user, listener = null,
+	constructor(server = "localhost", port = 54255, user = null, listener = null,
 			filter = EdbotStudioClient.Filter.ALL, deviceAlias = null) {
 		this.server = server;
 		this.port = port;
