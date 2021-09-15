@@ -83,7 +83,7 @@ class EdbotStudioClient {
 						self.listener(message);
 					}
 
-					// Resolve the promise linked to this sequence.
+					// If present, resolve the promise linked to this sequence.
 					if(self.pending.has(message.sequence)) {
 						const action = self.pending.get(message.sequence);
 						self.pending.delete(message.sequence);
