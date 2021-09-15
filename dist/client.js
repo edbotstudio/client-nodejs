@@ -38,11 +38,11 @@ class EdbotStudioClient {
 		CFG: 2
 	};
 
-	constructor(server="localhost", port=54255, user=null, listener=null,
-			filter=EdbotStudioClient.Filter.ALL, deviceAlias=null) {
+	constructor({server="localhost", port=54255, name=null, listener=null,
+			filter=EdbotStudioClient.Filter.ALL, deviceAlias=null} = {}) {
 		this.server = server;
 		this.port = port;
-		this.user = user;
+		this.name = name;
 		this.listener = listener;
 		this.filter = filter;
 		this.deviceAlias = deviceAlias;
@@ -63,7 +63,7 @@ class EdbotStudioClient {
 				self.data = {};
 				self.#send(
 					EdbotStudioClient.Request.INIT, {
-						user: self.user,
+						name: self.name,
 						filter: self.filter,
 						deviceAlias: self.deviceAlias
 					}, resolve, reject
