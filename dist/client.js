@@ -21,17 +21,13 @@ class EdbotStudioClient {
 		GET_CLIENTS: 2,
 		GET_SERVERS: 3,
 		RUN_MOTION: 10,
-		SET_SERVO_MODE: 11,
-		SET_SERVO_TORQUE: 12,
-		SET_SERVO_LED: 13,
-		SET_SERVO_SPEED: 14,
-		SET_SERVO_POSITION: 15,
-		SET_SERVO_PID: 16,
-		SET_BUZZER: 20,
-		SET_OPTIONS: 21,
-		SET_CUSTOM: 22,
-		SAY: 23, 
-		RESET: 24
+		SET_SERVOS: 11,
+		SET_SPEAKER: 20,
+		SET_DISPLAY: 21,
+		SET_OPTIONS: 22,
+		SET_CUSTOM: 23,
+		SAY: 24, 
+		RESET: 25
 	};
 	static Filter = {
 		ALL: 1,
@@ -210,32 +206,16 @@ class EdbotStudioClient {
 		return this.#request(EdbotStudioClient.Request.RUN_MOTION, params);
 	}
 
-	setServoMode(params) {
-		return this.#request(EdbotStudioClient.Request.SET_SERVO_MODE, params);
+	setServos(params) {
+		return this.#request(EdbotStudioClient.Request.SET_SERVOS, params);
 	}
 
-	setServoTorque(params) {
-		return this.#request(EdbotStudioClient.Request.SET_SERVO_TORQUE, params);
+	setSpeaker(params) {
+		return this.#request(EdbotStudioClient.Request.SET_SPEAKER, params);
 	}
 
-	setServoLED(params) {
-		return this.#request(EdbotStudioClient.Request.SET_SERVO_LED, params);
-	}
-
-	setServoSpeed(params) {
-		return this.#request(EdbotStudioClient.Request.SET_SERVO_SPEED, params);
-	}
-
-	setServoPosition(params) {
-		return this.#request(EdbotStudioClient.Request.SET_SERVO_POSITION, params);
-	}
-
-	setServoPID(params) {
-		return this.#request(EdbotStudioClient.Request.SET_SERVO_PID, params);
-	}
-
-	setBuzzer(params) {
-		return this.#request(EdbotStudioClient.Request.SET_BUZZER, params);
+	setDisplay(params) {
+		return this.#request(EdbotStudioClient.Request.SET_DISPLAY, params);
 	}
 
 	setOptions(params) {
