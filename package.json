@@ -6,8 +6,8 @@
 	"files": [
 		"package.json",
 		"index.js",
-		"dist/client.js",
-		"dist/robotis.js"
+		"src/client.js",
+		"src/robotis.js"
 	],
 	"keywords": [
 		"edbot",
