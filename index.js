@@ -5,6 +5,6 @@
 //
 
 module.exports = {
-	EdbotStudioClient: require("./dist/client.js"),
-	Robotis: require("./dist/robotis.js")
+	EdbotStudioClient: require("./src/client.js"),
+	Robotis: require("./src/robotis.js")
 }
