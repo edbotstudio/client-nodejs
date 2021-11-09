@@ -9,38 +9,35 @@ const merge = require("lodash.merge");
 const unset = require("lodash.unset");
 
 class EdbotStudioClient {
-	static Message = {
+	static Category = {
 		REQUEST: 1,
 		RESPONSE: 2,
 		UPDATE: 3,
 		DELETE: 4,
 		CLOSE: 5
 	};
-	static Request = {
+	static Type = {
 		INIT: 1,
 		GET_CLIENTS: 2,
 		GET_SERVERS: 3,
-		RUN_MOTION: 10,
-		SET_SERVOS: 11,
-		SET_SPEAKER: 20,
-		SET_DISPLAY: 21,
-		SET_OPTIONS: 22,
-		SET_CUSTOM: 23,
-		SAY: 24, 
-		RESET: 25
-	};
-	static Filter = {
-		ALL: 1,
-		CFG: 2
+		GET_SENSORS: 4,
+		RUN_MOTION: 5,
+		SET_SERVOS: 6,
+		SET_SPEAKER: 7,
+		SET_DISPLAY: 8,
+		SET_OPTIONS: 9,
+		SET_CUSTOM: 10,
+		SAY: 11, 
+		RESET: 12
 	};
 
-	constructor({server="localhost", port=54255, name=null, listener=null,
-			filter=EdbotStudioClient.Filter.ALL, deviceAlias=null} = {}) {
+	constructor({server="localhost", port=54255, listener=null,
+			name=null, reporters=true, deviceAlias=null} = {}) {
 		this.server = server;
 		this.port = port;
-		this.name = name;
 		this.listener = listener;
-		this.filter = filter;
+		this.name = name;
+		this.reporters = reporters;
 		this.deviceAlias = deviceAlias;
 		this.connected = false;
 		this.sequence = 1;
@@ -58,19 +55,19 @@ class EdbotStudioClient {
 			self.ws.onopen = function() {
 				self.data = {};
 				self.#send(
-					EdbotStudioClient.Request.INIT, {
+					EdbotStudioClient.Type.INIT, {
 						name: self.name,
-						filter: self.filter,
+						reporters: self.reporters,
 						deviceAlias: self.deviceAlias
 					}, resolve, reject
 				);
 			}
 			self.ws.onmessage = function(e) {
 				const message = JSON.parse(e.data);
-				if(message.sort === EdbotStudioClient.Message.RESPONSE) {
+				if(message.category === EdbotStudioClient.Category.RESPONSE) {
 					// Run code specific to the response message type.
 					switch(message.type) {
-						case EdbotStudioClient.Request.INIT:
+						case EdbotStudioClient.Type.INIT:
 							merge(self.data, message.data);
 							self.connected = true;
 							break;
@@ -89,14 +86,14 @@ class EdbotStudioClient {
 							action.reject(message.status.text);
 						}
 					}
-				} else if(message.sort === EdbotStudioClient.Message.UPDATE) {
+				} else if(message.category === EdbotStudioClient.Category.UPDATE) {
 					if(self.connected) {
 						merge(self.data, message.data);
 						if(self.listener) {
 							self.listener(message);
 						}
 					}
-				} else if(message.sort === EdbotStudioClient.Message.DELETE) {
+				} else if(message.category === EdbotStudioClient.Category.DELETE) {
 					if(self.connected) {
 						unset(self.data, message.data.path);
 						if(self.listener) {
@@ -114,7 +111,7 @@ class EdbotStudioClient {
 				}
 				if(self.listener) {
 					self.listener({
-						sort: EdbotStudioClient.Message.CLOSE,
+						category: EdbotStudioClient.Category.CLOSE,
 						data: {
 							code: e.code,
 							reason: e.reason
@@ -195,43 +192,47 @@ class EdbotStudioClient {
 	}
 
 	getClients() {
-		return this.#request(EdbotStudioClient.Request.GET_CLIENTS, null);
+		return this.#request(EdbotStudioClient.Type.GET_CLIENTS, null);
 	}
 
 	getServers() {
-		return this.#request(EdbotStudioClient.Request.GET_SERVERS, null);
+		return this.#request(EdbotStudioClient.Type.GET_SERVERS, null);
+	}
+
+	getSensors(params) {
+		return this.#request(EdbotStudioClient.Type.GET_SENSORS, params);
 	}
 
 	runMotion(params) {
-		return this.#request(EdbotStudioClient.Request.RUN_MOTION, params);
+		return this.#request(EdbotStudioClient.Type.RUN_MOTION, params);
 	}
 
 	setServos(params) {
-		return this.#request(EdbotStudioClient.Request.SET_SERVOS, params);
+		return this.#request(EdbotStudioClient.Type.SET_SERVOS, params);
 	}
 
 	setSpeaker(params) {
-		return this.#request(EdbotStudioClient.Request.SET_SPEAKER, params);
+		return this.#request(EdbotStudioClient.Type.SET_SPEAKER, params);
 	}
 
 	setDisplay(params) {
-		return this.#request(EdbotStudioClient.Request.SET_DISPLAY, params);
+		return this.#request(EdbotStudioClient.Type.SET_DISPLAY, params);
 	}
 
 	setOptions(params) {
-		return this.#request(EdbotStudioClient.Request.SET_OPTIONS, params);
+		return this.#request(EdbotStudioClient.Type.SET_OPTIONS, params);
 	}
 
 	setCustom(params) {
-		return this.#request(EdbotStudioClient.Request.SET_CUSTOM, params);
+		return this.#request(EdbotStudioClient.Type.SET_CUSTOM, params);
 	}
 
 	say(params) {
-		return this.#request(EdbotStudioClient.Request.SAY, params);
+		return this.#request(EdbotStudioClient.Type.SAY, params);
 	}
 
 	reset(params) {
-		return this.#request(EdbotStudioClient.Request.RESET, params);
+		return this.#request(EdbotStudioClient.Type.RESET, params);
 	}
 
 	///////////////////////////////////////////////////////////////////////////
@@ -249,7 +250,7 @@ class EdbotStudioClient {
 	#send(type, params, resolve, reject) {
 		this.ws.send(
 			JSON.stringify({
-				sort: EdbotStudioClient.Message.REQUEST,
+				category: EdbotStudioClient.Category.REQUEST,
 				type: type,
 				sequence: this.sequence,
 				params: params
