@@ -21,14 +21,15 @@ class EdbotStudioClient {
 		GET_CLIENTS: 2,
 		GET_SERVERS: 3,
 		GET_SENSORS: 4,
-		RUN_MOTION: 5,
-		SET_SERVOS: 6,
-		SET_SPEAKER: 7,
-		SET_DISPLAY: 8,
-		SET_OPTIONS: 9,
-		SET_CUSTOM: 10,
-		SAY: 11, 
-		RESET: 12
+		GET_SERVOS: 5,
+		RUN_MOTION: 6,
+		SET_SERVOS: 7,
+		SET_SPEAKER: 8,
+		SET_DISPLAY: 9,
+		SET_OPTIONS: 10,
+		SET_CUSTOM: 11,
+		SAY: 12, 
+		RESET: 13
 	};
 
 	constructor({server="localhost", port=54255, listener=null,
@@ -201,6 +202,10 @@ class EdbotStudioClient {
 
 	getSensors(params) {
 		return this.#request(EdbotStudioClient.Type.GET_SENSORS, params);
+	}
+
+	getServos(params) {
+		return this.#request(EdbotStudioClient.Type.GET_SERVOS, params);
 	}
 
 	runMotion(params) {
